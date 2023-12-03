@@ -35,40 +35,75 @@ def getDeviceInfo(path):
     file = open(path, "r")
     lines = file.readlines()
     fileBar = Bar('Processing device files...', max=len(lines))
+    comment = '#'
+
     for line in lines:
         fileBar.next()
-        if line.startswith("#"):
+        if line.startswith(comment):
             continue
+
+        # Now we know that this isn't a comment, but we still need to rip out the comments that exist in the line.
+        if comment in line:
+            line = line.split(comment)[0]
+
+        # Now we can process the property.
         if line.startswith("SOC_NAME"):
             deviceInfoDict["SOC_NAME"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_BASE"):
             deviceInfoDict["BOARD_BASE"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_REPLACE_CAMERAFEATURE") and not line.startswith("BOARD_REPLACE_CAMERAFEATURE_PATH"):
             deviceInfoDict["BOARD_REPLACE_CAMERAFEATURE"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_REPLACE_CAMERAFEATURE_PATH"):
             deviceInfoDict["BOARD_REPLACE_CAMERAFEATURE_PATH"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_HAS_BROKEN_WEAVER"):
             deviceInfoDict["BOARD_HAS_BROKEN_WEAVER"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_NO_FABRIC_CRYPTO"):
             deviceInfoDict["BOARD_NO_FABRIC_CRYPTO"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_SET_DPI_EXPLICITLY"):
             deviceInfoDict["BOARD_SET_DPI_EXPLICITLY"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("BOARD_DPI"):
             deviceInfoDict["BOARD_DPI"] = line.split(": ")[1].strip()
+            continue
+        elif line != "\n":  # If it's not any property, nor a comment, nor a blank line, it's bad.
+            print("Unknown board property: ", line)
+            exit(1)
+
     fileBar.finish()
     file = open("soc/" + deviceInfoDict["SOC_NAME"] + "/" + deviceInfoDict["SOC_NAME"] + ".soc", "r")
     lines = file.readlines()
     fileBar = Bar('Processing soc files...', max=len(lines))
     for line in lines:
         fileBar.next()
+
         if line.startswith("#"):
             continue
+
+        # Now we know that this isn't a comment, but we still need to rip out the comments that exist in the line.
+        if comment in line:
+            line = line.split(comment)[0]
+
+        # Now we can process the property.
         if line.startswith("SOC_REMOVE_SELINUX_MAPPINGS"):
             socInfoDict["SOC_REMOVE_SELINUX_MAPPINGS"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("SOC_MIN_API_LEVEL"):
             socInfoDict["SOC_MIN_API_LEVEL"] = line.split(": ")[1].strip()
+            continue
         if line.startswith("SOC_TARGET_API_LEVEL"):
             socInfoDict["SOC_TARGET_API_LEVEL"] = line.split(": ")[1].strip()
+            continue
+
+        elif line != "\n":
+            print("Unknown soc property: ", line)
+            exit(1)
+
     fileBar.finish()
 
 def printDeviceInfo():
@@ -96,7 +131,7 @@ if __name__ == '__main__':
     if len(dev) == 0:
         exit()
 
-    sel = int(input("Select a device by entering its number."))
+    sel = int(input("Select a device by entering its number. "))
 
     if dev[sel] is None:
         print("Invalid device selected.")
@@ -104,4 +139,4 @@ if __name__ == '__main__':
 
     getDeviceInfo(dev[sel])
 
-    printDeviceInfo()
+    printDeviceInfo() # Debug purposes? Nah. Keep with AOSP style? Maybe.
