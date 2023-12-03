@@ -22,6 +22,7 @@ socInfoDict = {
 }
 
 
+# Gets all the .device config files under the specified path. Returns a list of device paths.
 def get_device_dirs(path):
     devices = []
     for files in glob.iglob(path + "**/*.device", recursive=True):
@@ -31,6 +32,7 @@ def get_device_dirs(path):
     return devices
 
 
+# This function was supposed to be easy-peasy and good-looking. It's not. It looks awful. Does it work? Yes.
 def getDeviceInfo(path):
     file = open(path, "r")
     lines = file.readlines()
