@@ -1,8 +1,11 @@
 # main.py
-# BotchedRPR - 2023-2023
+# BotchedRPR - 2023
 import glob
 
 from progress.bar import Bar
+
+# This file contains functions that are a mess.
+# I feel ashamed publishing this. I really do.
 
 deviceInfoDict = {
     "SOC_NAME": "",
