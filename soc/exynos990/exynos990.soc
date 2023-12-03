@@ -1,0 +1,5 @@
+# SoC stuff
+
+SOC_REMOVE_SELINUX_MAPPINGS: true
+SOC_MIN_API_LEVEL: 29 # KnoxGuard, 29 on 990 devices, change to 30 to avoid knox lock
+SOC_TARGET_API_LEVEL: 30

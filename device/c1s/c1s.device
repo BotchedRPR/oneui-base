@@ -1,0 +1,21 @@
+# Board configuration for Note20 :)
+
+# Three sections: SoC, Board and Packages
+# SoC - just the name of the SoC, the script will include the SoC config using this name
+# Board - fixes such as brightness, nfc, etc.
+# Packages - for libraries and maybe apps that are required for some device settings
+
+# SoC
+SOC_NAME: exynos990
+
+# Board
+BOARD_BASE: s22ultra # BASE can be (s21, s21plus, s22ultra, a54, a53)
+BOARD_REPLACE_CAMERAFEATURE: true
+BOARD_REPLACE_CAMERAFEATURE_PATH: "device/c1s/camera/camera-feature.xml"
+BOARD_HAS_BROKEN_WEAVER: true
+BOARD_NO_FABRIC_CRYPTO: true
+BOARD_SET_DPI_EXPLICITLY: true
+BOARD_DPI: 480
+
+# Packages
+# empty
