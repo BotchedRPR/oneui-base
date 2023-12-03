@@ -7,6 +7,7 @@
 import glob
 
 from progress.bar import Bar
+from base import prepase_base
 
 deviceInfoDict = {
     "SOC_NAME": "",
@@ -150,3 +151,5 @@ if __name__ == '__main__':
     getDeviceInfo(dev[sel])
 
     printDeviceInfo() # Debug purposes? Nah. Keep with AOSP style? Maybe.
+
+    prepase_base(deviceInfoDict["BOARD_BASE"])
