@@ -9,7 +9,7 @@
 SOC_NAME: exynos990
 
 # Board
-BOARD_BASE: s22ultra # BASE can be (s21, s21plus, s22ultra, a54, a53)
+BOARD_BASE: s21ultra # BASE can be (s21, s21plus, s21ultra, a54, a53)
 BOARD_REPLACE_CAMERAFEATURE: true
 BOARD_REPLACE_CAMERAFEATURE_PATH: "device/c1s/camera/camera-feature.xml"
 BOARD_HAS_BROKEN_WEAVER: true
