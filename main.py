@@ -35,6 +35,8 @@ def get_device_dirs(path):
 # This function was supposed to be easy-peasy and good-looking. It's not. It looks awful. Does it work? Yes.
 def getDeviceInfo(path):
     file = open(path, "r")
+
+    # Device properties
     lines = file.readlines()
     fileBar = Bar('Processing device files...', max=len(lines))
     comment = '#'
@@ -78,9 +80,11 @@ def getDeviceInfo(path):
             exit(1)
 
     fileBar.finish()
+
+    # SoC properties
     file = open("soc/" + deviceInfoDict["SOC_NAME"] + "/" + deviceInfoDict["SOC_NAME"] + ".soc", "r")
     lines = file.readlines()
-    fileBar = Bar('Processing soc files...', max=len(lines))
+    fileBar = Bar('Processing SoC files...', max=len(lines))
     for line in lines:
         fileBar.next()
 
@@ -103,7 +107,7 @@ def getDeviceInfo(path):
             continue
 
         elif line != "\n":
-            print("Unknown soc property: ", line)
+            print("Unknown SoC property: ", line)
             exit(1)
 
     fileBar.finish()
